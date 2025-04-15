@@ -10,9 +10,9 @@ export const getTracks = async () => {
       params: {
         client_id: CLIENT_ID,
         format: 'json',
-        limit: 10,                      // Puedes ajustar la cantidad de resultados
-        fuzzytags: 'groove+rock',       // Cambia esto por los géneros que quieras
-        speed: 'high+veryhigh',         // Opcional: velocidad de las canciones
+        limit: 10,                      
+        fuzzytags: 'groove+rock',       
+        speed: 'high+veryhigh',        
         include: 'musicinfo',
         groupby: 'artist_id',
       },
@@ -34,6 +34,6 @@ export const getTracks = async () => {
     return tracks;
   } catch (error) {
     console.error("Error al consultar las tracks de Jamendo", error);
-    return [];  // En caso de error retorna un arreglo vacío
+    return [];  
   }
 };
