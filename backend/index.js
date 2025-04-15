@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import tracksRouter from './src/routes/routes.js';  // Asegurate que la ruta sea correcta!
+import tracksRouter from './src/routes/routes.js'; 
 
 dotenv.config();
 
@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Aquí conectas tus rutas
 app.use('/', tracksRouter);
 
 app.listen(PORT, () => {
