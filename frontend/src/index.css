@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@layer components {
+    .flex-center {
+        @apply flex flex-col justify-center items-center;
+    }
+}
+
+
+@font-face {
+    font-family: 'Zen Dots';
+    src: url('./assets/fonts/ZenDots-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Zen Antique';
+    src: url('./assets/fonts/ZenAntique-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@layer utilities {
+    .font-dots {
+        font-family: 'Zen Dots', sans-serif;
+    }
+    .font-uniq {
+        font-family: 'Zen Antique', sans-serif;
+    }
+}
+
+
+
+@theme{
+    --color-primary:#020202;
+    --color-secundary:  #00FFCC;
+    --color-tertiary: #D9D9D9;
+}
+

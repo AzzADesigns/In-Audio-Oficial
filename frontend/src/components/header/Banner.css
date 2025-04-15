@@ -1,0 +1,28 @@
+.line-container {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 5%;
+  height: 100vh;
+  transform: translateX(-50%);
+  pointer-events: none; 
+}
+
+.line {
+  stroke: white; /* Color de la línea */
+  stroke-width: 5; /* Grosor de la línea */
+  fill: none; /* Sin relleno */
+  stroke-dasharray: 1000; /* Longitud del trazo */
+  stroke-dashoffset: 1000; /* Inicialmente oculta la línea */
+  animation: drawLine linear forwards;
+  animation-timeline: scroll();
+}
+
+@keyframes drawLine {
+  from {
+    stroke-dashoffset: 1000; /* Línea oculta */
+  }
+  to {
+    stroke-dashoffset: 0; /* Línea completamente visible */
+  }
+}
