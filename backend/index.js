@@ -1,10 +1,16 @@
-const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 5000;
+import express from 'express';
+import dotenv from 'dotenv';
+import tracksRouter from './src/routes/routes.js';  // Asegurate que la ruta sea correcta!
 
-app.get('/', (req, res) => {
-    res.send('¡Backend funcionando!');
-});
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json());
+
+// Aquí conectas tus rutas
+app.use('/', tracksRouter);
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
