@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { MusicPlayer } from './MusicPlayer';
 import { getMusic } from '../../../../../../api/getMusic';
 
@@ -12,39 +13,84 @@ interface PlayMusic {
 
 export const ListMusic = () => {
     const [playMusic, setPlayMusic] = useState<PlayMusic[]>([]);
+    const [page, setPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchPlayMusic = async () => {
-            const data = await getMusic();
-            console.log("Datos obtenidos de getMusic:", data);
+            setIsLoading(true);
+            const data = await getMusic(page, 7);
             setPlayMusic(data);
+            setIsLoading(false);
         };
         fetchPlayMusic();
-    }, []);
+    }, [page]);
 
     return (
         <section className='xl:w-[72%]'>
             <div>
-                <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider'>
+                <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider mb-16'>
                     <span className='text-secundary'>O</span>ur Music
                 </h3>
             </div>
-            <div className='w-full h-full flex-center bg-primary'>
+            <div className='w-full h-[660px] flex-center '>
                 <div className='text-tertiary bg-primary w-full h-20 flex justify-between items-center font-uniq text-lg lg:text-3xl ml-12 p-10'>
                     <h2 className='lg:ml-9 xl:ml-20 2xl:ml-32'>Track</h2>
                     <h2 className='lg:mr-5'>Artist</h2>
                     <h2 className='xl:mr-14 2xl:mr-24'>Genre</h2>
                 </div>
-                {playMusic.map((file) => (
-                    <div key={file.id} className='bg-primary h-20 w-full'>
-                        <MusicPlayer 
-                            title={file.name} 
-                            artist={file.artist} 
-                            album={file.album} 
-                            audioUrl={file.audioUrl}
-                        />
-                    </div>
-                ))}
+
+                <AnimatePresence mode="wait">
+                    {isLoading ? (
+                        <motion.div
+                            key="loading"
+                            className="text-tertiary text-2xl my-8 h-[600px] flex justify-center items-center font-dots"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                        >
+                            Cargando...
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key={page} // clave importante para que haga el cambio por página
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.4 }}
+                            className="w-full h-[650px]"
+                        >
+                            {playMusic.map((file) => (
+                                <div key={file.id} className='bg-primary h-20 w-full'>
+                                    <MusicPlayer 
+                                        title={file.name} 
+                                        artist={file.artist} 
+                                        album={file.album} 
+                                        audioUrl={file.audioUrl}
+                                    />
+                                </div>
+                            ))}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+
+            <div className="flex justify-center items-center gap-4 mt-4">
+                <button
+                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary transition"
+                    disabled={page === 1 || isLoading}
+                    onClick={() => setPage(page - 1)}
+                >
+                    Anterior
+                </button>
+                <span className="text-tertiary text-lg">Página {page}</span>
+                <button
+                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary transition"
+                    disabled={isLoading}
+                    onClick={() => setPage(page + 1)}
+                >
+                    Siguiente
+                </button>
             </div>
         </section>
     );
