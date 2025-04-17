@@ -32,8 +32,8 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ title, artist, album, 
     };
 
     return (
-        <div className="text-2xl text-tertiary flex justify-between items-center border-t-2  h-20 bg-primary">
-            <section className="flex">
+        <div className="text-2xl text-tertiary flex justify-between items-center border-t-2 gap-6 lg:gap-10 h-20 bg-primary">
+            <section className="flex w-10">
                 <button
                     onClick={handleTogglePlay}
                     className="px-3 py-1 rounded cursor-pointer"
