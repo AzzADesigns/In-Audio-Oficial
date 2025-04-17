@@ -10,7 +10,6 @@ export const getTracks = async () => {
       params: {
         client_id: CLIENT_ID,
         format: 'json',
-        limit: 10,                              
         include: 'musicinfo',
         groupby: 'artist_id',
       },
@@ -32,6 +31,6 @@ export const getTracks = async () => {
     return tracks;
   } catch (error) {
     console.error("Error al consultar las tracks de Jamendo", error);
-    return [];  // En caso de error retorna un arreglo vacío
+    return [];  
   }
 };
