@@ -27,9 +27,9 @@ export const ListMusic = () => {
     }, [page]);
 
     return (
-        <section className='xl:w-[72%]'>
+        <section className='xl:w-[72%] bg-primary'>
             <div>
-                <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider mb-16'>
+                <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider mb-10'>
                     <span className='text-secundary'>O</span>ur Music
                 </h3>
             </div>
@@ -53,7 +53,7 @@ export const ListMusic = () => {
                         </motion.div>
                     ) : (
                         <motion.div
-                            key={page} // clave importante para que haga el cambio por página
+                            key={page}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
@@ -77,7 +77,7 @@ export const ListMusic = () => {
 
             <div className="flex justify-center items-center gap-4 mt-4">
                 <button
-                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary transition"
+                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary transition cursor-pointer"
                     disabled={page === 1 || isLoading}
                     onClick={() => setPage(page - 1)}
                 >
@@ -85,7 +85,7 @@ export const ListMusic = () => {
                 </button>
                 <span className="text-tertiary text-lg">Página {page}</span>
                 <button
-                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary transition"
+                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary transition cursor-pointer"
                     disabled={isLoading}
                     onClick={() => setPage(page + 1)}
                 >
