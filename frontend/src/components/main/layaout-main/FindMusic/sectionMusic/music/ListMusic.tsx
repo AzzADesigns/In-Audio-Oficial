@@ -1,24 +1,46 @@
-import React from 'react'
-import { MusicPlayer } from './MusicPlayer'
+import React, { useEffect, useState } from 'react';
+import { MusicPlayer } from './MusicPlayer';
+import { getMusic } from '../../../../../../api/getMusic';
+
+interface PlayMusic {
+    id: number;
+    name: string;
+    artist: string;
+    album: string;
+    audioUrl: string;
+}
 
 export const ListMusic = () => {
+    const [playMusic, setPlayMusic] = useState<PlayMusic[]>([]);
 
-    const fileAudio=[1,2,3,4,5,6,7,8,9,10,11]
+    useEffect(() => {
+        const fetchPlayMusic = async () => {
+            const data = await getMusic();
+            console.log("Datos obtenidos de getMusic:", data);
+            setPlayMusic(data);
+        };
+        fetchPlayMusic();
+    }, []);
 
     return (
         <section className='xl:w-[72%]'>
             <div>
-                <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider'><span className='text-secundary'>O</span>ur Music</h3>
+                <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider'>
+                    <span className='text-secundary'>O</span>ur Music
+                </h3>
             </div>
             <div className='bg-tertiary w-full h-full gap-5'>
-                {fileAudio.map((file, index)=>{
-                    return(
-                        <div className='bg-primary h-20 w-full'>
-                            <MusicPlayer/>
-                        </div>
-                    )
-                })}
+                {playMusic.map((file) => (
+                    <div key={file.id} className='bg-primary h-20 w-full'>
+                        <MusicPlayer 
+                            title={file.name} 
+                            artist={file.artist} 
+                            album={file.album} 
+                            audioUrl={file.audioUrl}
+                        />
+                    </div>
+                ))}
             </div>
         </section>
-    )
+    );
 }
