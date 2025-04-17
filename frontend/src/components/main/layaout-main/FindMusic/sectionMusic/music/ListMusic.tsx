@@ -29,7 +29,7 @@ export const ListMusic = () => {
                     <span className='text-secundary'>O</span>ur Music
                 </h3>
             </div>
-            <div className='bg-tertiary w-full h-full gap-5'>
+            <div className='w-full h-full flex-center bg-primary'>
                 {playMusic.map((file) => (
                     <div key={file.id} className='bg-primary h-20 w-full'>
                         <MusicPlayer 
