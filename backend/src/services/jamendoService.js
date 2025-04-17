@@ -10,9 +10,6 @@ export const getTracks = async () => {
       params: {
         client_id: CLIENT_ID,
         format: 'json',
-        limit: 10,                      
-        fuzzytags: 'groove+rock',       
-        speed: 'high+veryhigh',        
         include: 'musicinfo',
         groupby: 'artist_id',
       },
@@ -28,7 +25,7 @@ export const getTracks = async () => {
       name: track.name,
       artist: track.artist_name,
       album: track.album_name,
-      audioUrl: track.audio,  // Link para reproducir la música
+      audioUrl: track.audio,  
     }));
 
     return tracks;
