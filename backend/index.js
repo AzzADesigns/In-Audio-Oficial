@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import tracksRouter from './src/routes/routes.js';  // Asegurate que la ruta sea correcta!
+import tracksRouter from './src/routes/routes.js'; 
 
 
 dotenv.config();
