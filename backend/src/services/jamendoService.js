@@ -4,7 +4,7 @@ dotenv.config();
 
 const CLIENT_ID = process.env.JAMENDO_API_KEY;
 
-export const getTracks = async () => {
+export const getTracks = async (limit = 7, offset = 0) => {
   try {
     const response = await axios.get('https://api.jamendo.com/v3.0/tracks', {
       params: {
@@ -12,6 +12,8 @@ export const getTracks = async () => {
         format: 'json',
         include: 'musicinfo',
         groupby: 'artist_id',
+        limit,      // cantidad por página
+        offset      // desplazamiento (para la paginación)
       },
     });
 
