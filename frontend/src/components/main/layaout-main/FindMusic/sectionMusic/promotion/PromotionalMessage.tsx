@@ -1,5 +1,5 @@
 import React from 'react'
-import { Presentation } from '../../sectionGenres/TitleAndPresentation/Presentation'
+import { Presentation } from '../../../sectionGenres/TitleAndPresentation/Presentation'
 
 export const PromotionalMessage = () => {
   return (

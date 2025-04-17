@@ -1,6 +1,6 @@
 import React from 'react'
-import { PromotionalMessage } from './PromotionalMessage'
-import { ListMusic } from './ListMusic'
+import { PromotionalMessage } from './promotion/PromotionalMessage'
+import { ListMusic } from './music/ListMusic'
 
 export const PromotionAndMusic = () => {
     return (

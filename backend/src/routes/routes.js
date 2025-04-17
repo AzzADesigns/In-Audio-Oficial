@@ -3,7 +3,7 @@ import { getTracks } from '../services/jamendoService.js';  // Asegúrate de que
 
 const router = express.Router();
 
-router.get('/playlists', async (req, res) => {
+router.get('/music', async (req, res) => {
   try {
     const Track= await getTracks();
     res.json(Track);  // Envía las playlists como respuesta JSON
