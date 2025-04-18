@@ -1,4 +1,4 @@
-import React, { useRef} from 'react';
+import React, { useRef } from 'react';
 import { MarqueeItem } from "./MarqueeItem";
 import { FaPlay } from "react-icons/fa6";
 import "./MusicPlayer.css";

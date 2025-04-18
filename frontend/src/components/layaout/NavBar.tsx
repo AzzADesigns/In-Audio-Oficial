@@ -1,7 +1,9 @@
 import { RiLoginCircleFill } from "react-icons/ri";
-import { BsFillPlayCircleFill } from "react-icons/bs";
+import { BsFillPlayCircleFill, BsFillPauseCircleFill } from "react-icons/bs";
 import { IoSettings } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import { useAudio } from "../../contexts/AudioContext";
+
 
 const liIcons = [
     <RiLoginCircleFill className="w-9 h-9 text-tertiary hover:text-secundary hover:scale-105 transition-all duration-300" />,
@@ -16,8 +18,20 @@ const liWords: string[] = [
 ];
 
 export const NavBar = () => {
-
+    const { currentAudio, isPlaying, setIsPlaying, setCurrentAudio } = useAudio();  // Usamos el contexto aquí
     const [navItems, setNavItems] = useState<(string | JSX.Element)[]>([]);
+
+    const handleTogglePlay = () => {
+        if (currentAudio) {
+            if (isPlaying) {
+                currentAudio.pause();
+                setIsPlaying(false);
+            } else {
+                currentAudio.play();
+                setIsPlaying(true);
+            }
+        }
+    };
 
     useEffect(() => {
         const updateNavbar = () => {
@@ -30,18 +44,22 @@ export const NavBar = () => {
     }, []);
 
     return (
-        <nav className="fixed bottom-0  xl:bottom-[90%] w-[80%] lg:w-[36%] z-50 bg-black/50 backdrop-blur-xl border-b-4 border-secundary text-tertiary shadow-lg rounded-4xl xl:rounded-sm">
+        <nav className="fixed bottom-0 xl:bottom-[90%] w-[80%] lg:w-[36%] z-50 bg-black/50 backdrop-blur-xl border-b-4 border-secundary text-tertiary shadow-lg rounded-4xl xl:rounded-sm">
             <div>
-                <img src="logo1.svg" alt="" />
+                <img src="logo1.svg" alt="Logo" />
             </div>
-            <div className="max-w-7xl  mx-auto flex justify-center items-center h-16 md:h-20 px-6 ">
-                <ul className={` w-[90%]  justify-between flex items-center ${navItems === liWords ? 'gap-12 text-lg' : 'gap-6'}`}>
+            <div className="max-w-7xl mx-auto flex justify-center items-center h-16 md:h-20 px-6">
+                <ul className={`w-[90%] justify-between flex items-center ${navItems === liWords ? 'gap-12 text-lg' : 'gap-6'}`}>
                     {navItems.map((item, index) => (
                         <li
                             key={index}
-                            className="flex  justify-center items-center cursor-pointer hover:text-secundary hover:scale-105 transition-all duration-300 font-uniq"
+                            className="flex justify-center items-center cursor-pointer hover:text-secundary hover:scale-105 transition-all duration-300 font-uniq"
+                            onClick={item === liIcons[1] ? handleTogglePlay : undefined}  // Añadimos el evento de clic al icono de reproducción
                         >
-                            {item}
+                            {item === liIcons[1] ? (
+                                isPlaying ? <BsFillPauseCircleFill className="w-10 h-10 text-tertiary hover:text-secundary hover:scale-105 transition-all duration-300" /> : 
+                                <BsFillPlayCircleFill className="w-10 h-10 text-tertiary hover:text-secundary hover:scale-105 transition-all duration-300" />
+                            ) : item}
                         </li>
                     ))}
                 </ul>
