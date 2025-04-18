@@ -11,7 +11,7 @@ interface PlayMusic {
     audioUrl: string;
 }
 
-export const ListMusic = () => {
+export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
     const [playMusic, setPlayMusic] = useState<PlayMusic[]>([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +27,7 @@ export const ListMusic = () => {
     }, [page]);
 
     return (
-        <section className='xl:w-[72%] bg-primary'>
+        <section  ref={ref} className='xl:w-[72%] bg-primary'>
             <div>
                 <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider mb-10'>
                     <span className='text-secundary'>O</span>ur Music
@@ -94,4 +94,4 @@ export const ListMusic = () => {
             </div>
         </section>
     );
-}
+})

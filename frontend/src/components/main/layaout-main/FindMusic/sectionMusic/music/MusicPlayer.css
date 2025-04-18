@@ -13,7 +13,7 @@
 }
 
 .marquee-track span {
-    margin-right: 3rem; /* espacio entre repeticiones */
+    margin-right: 3rem; 
 }
 
 @keyframes marquee {
