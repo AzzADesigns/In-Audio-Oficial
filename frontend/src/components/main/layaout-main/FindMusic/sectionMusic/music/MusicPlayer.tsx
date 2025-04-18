@@ -1,8 +1,10 @@
-import React, { useRef, useState } from 'react';
-import {MarqueeItem} from "./MarqueeItem"
+import React, { useRef } from 'react';
+import { MarqueeItem } from "./MarqueeItem";
 import { FaPlay } from "react-icons/fa6";
 import "./MusicPlayer.css";
 import { IoMdPause } from "react-icons/io";
+import { useAudio } from '../../../../../../contexts/AudioContext';
+
 
 interface MusicPlayerProps {
     title: string;
@@ -13,22 +15,26 @@ interface MusicPlayerProps {
 
 export const MusicPlayer: React.FC<MusicPlayerProps> = ({ title, artist, album, audioUrl }) => {
     const audioRef = useRef<HTMLAudioElement>(null);
-    const [isPlaying, setIsPlaying] = useState(false);
+    const { currentAudio, setCurrentAudio, isPlaying, setIsPlaying } = useAudio();
 
     const handleTogglePlay = () => {
         if (!audioRef.current) return;
 
-        if (isPlaying) {
+        if (currentAudio === audioRef.current && isPlaying) {
             audioRef.current.pause();
+            setIsPlaying(false);
         } else {
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+            setCurrentAudio(audioRef.current); 
             audioRef.current.play();
+            setIsPlaying(true);
         }
-
-        setIsPlaying(!isPlaying);
     };
 
     const handleEnded = () => {
-        setIsPlaying(false); 
+        setIsPlaying(false);
     };
 
     return (
@@ -38,16 +44,11 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ title, artist, album, 
                     onClick={handleTogglePlay}
                     className="px-3 py-1 rounded cursor-pointer"
                 >
-                    {isPlaying ? <IoMdPause /> : <FaPlay />}
+                    {isPlaying && currentAudio === audioRef.current ? <IoMdPause /> : <FaPlay />}
                 </button>
             </section>
 
-            <audio
-                ref={audioRef}
-                src={audioUrl}
-                onEnded={handleEnded}
-            ></audio>
-
+            <audio ref={audioRef} src={audioUrl} onEnded={handleEnded} />
             <MarqueeItem text={title} />
             <p>-</p>
             <MarqueeItem text={artist} />
@@ -56,3 +57,4 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ title, artist, album, 
         </div>
     );
 };
+
