@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { MarqueeItem } from "./MarqueeItem";
 import { FaPlay } from "react-icons/fa6";
-import "./MusicPlayer.css";
 import { IoMdPause } from "react-icons/io";
 import { useAudio } from '../../../../../../contexts/AudioContext';
+import "./MusicPlayer.css";
 
 interface MusicPlayerProps {
     title: string;
@@ -13,43 +13,33 @@ interface MusicPlayerProps {
 }
 
 export const MusicPlayer: React.FC<MusicPlayerProps> = ({ title, artist, album, audioUrl }) => {
-    const audioRef = useRef<HTMLAudioElement>(null);
-    const { currentAudio, setCurrentAudio, isPlaying, setIsPlaying, setCurrentTrackInfo } = useAudio();
+    const { currentAudio, isPlaying, playTrack, trackList, setCurrentIndex, pauseTrack } = useAudio();
 
-    const handleTogglePlay = () => {
-        if (!audioRef.current) return;
-
-        if (currentAudio === audioRef.current && isPlaying) {
-            audioRef.current.pause();
-            setIsPlaying(false);
+    const handlePlayPause = () => {
+        if (isPlaying) {
+            pauseTrack();
         } else {
-            if (currentAudio) {
-                currentAudio.pause();
+            const index = trackList.findIndex(track => track.audioUrl === audioUrl);
+            if (index !== -1) {
+                setCurrentIndex(index);
+                playTrack(trackList[index]);
             }
-            setCurrentAudio(audioRef.current);
-            setCurrentTrackInfo({ title, artist, album });
-            audioRef.current.play();
-            setIsPlaying(true);
         }
     };
 
-    const handleEnded = () => {
-        setIsPlaying(false);
-        setCurrentTrackInfo(null);
-    };
+    const isThisTrackPlaying = currentAudio?.src === audioUrl && isPlaying;
 
     return (
         <div className="text-2xl text-tertiary flex justify-between items-center border-t-2 gap-6 lg:gap-10 h-20 bg-primary">
             <section className="flex w-10">
                 <button
-                    onClick={handleTogglePlay}
+                    onClick={handlePlayPause}
                     className="px-3 py-1 rounded cursor-pointer"
                 >
-                    {isPlaying && currentAudio === audioRef.current ? <IoMdPause /> : <FaPlay />}
+                    {isThisTrackPlaying ? <IoMdPause /> : <FaPlay />}
                 </button>
             </section>
 
-            <audio ref={audioRef} src={audioUrl} onEnded={handleEnded} />
             <MarqueeItem text={title} />
             <p>-</p>
             <MarqueeItem text={artist} />

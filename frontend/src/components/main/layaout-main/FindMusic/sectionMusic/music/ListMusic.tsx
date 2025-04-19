@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MusicPlayer } from './MusicPlayer';
 import { getMusic } from '../../../../../../api/getMusic';
+import { useAudio } from '../../../../../../contexts/AudioContext';
 
 interface PlayMusic {
     id: number;
@@ -15,16 +16,23 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
     const [playMusic, setPlayMusic] = useState<PlayMusic[]>([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
+    const { setTrackList } = useAudio();
 
     useEffect(() => {
         const fetchPlayMusic = async () => {
             setIsLoading(true);
             const data = await getMusic(page, 7);
             setPlayMusic(data);
+            setTrackList(data.map(track => ({
+                title: track.name,
+                artist: track.artist,
+                album: track.album,
+                audioUrl: track.audioUrl
+            })));
             setIsLoading(false);
         };
         fetchPlayMusic();
-    }, [page]);
+    }, [page, setTrackList]);
 
     return (
         <section  ref={ref} className='xl:w-[72%] bg-primary'>

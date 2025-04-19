@@ -87,7 +87,7 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                             onClick={() => {
                                 if ((typeof item === "string" && item === "Play Music") || index === 1) {
                                     if (scrollToMusic) {
-                                        scrollToMusic();
+                                        scrollToMusic(); // Llamada para hacer scroll a la sección de música
                                     }
                                 }
                             }}
