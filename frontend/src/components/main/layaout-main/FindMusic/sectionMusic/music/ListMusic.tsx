@@ -37,7 +37,7 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
                 <div className='text-tertiary bg-primary w-full h-20 flex justify-between items-center font-uniq text-lg lg:text-3xl ml-12 p-10'>
                     <h2 className='lg:ml-9 xl:ml-20 2xl:ml-32'>Track</h2>
                     <h2 className='lg:mr-5'>Artist</h2>
-                    <h2 className='xl:mr-14 2xl:mr-24'>Genre</h2>
+                    <h2 className='xl:mr-14 2xl:mr-24'>Album</h2>
                 </div>
 
                 <AnimatePresence mode="wait">
