@@ -11,7 +11,7 @@ interface PlayMusic {
     audioUrl: string;
 }
 
-export const ListMusic = () => {
+export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
     const [playMusic, setPlayMusic] = useState<PlayMusic[]>([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +27,7 @@ export const ListMusic = () => {
     }, [page]);
 
     return (
-        <section className='xl:w-[72%] bg-primary'>
+        <section  ref={ref} className='xl:w-[72%] bg-primary'>
             <div>
                 <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider mb-10'>
                     <span className='text-secundary'>O</span>ur Music
@@ -37,7 +37,7 @@ export const ListMusic = () => {
                 <div className='text-tertiary bg-primary w-full h-20 flex justify-between items-center font-uniq text-lg lg:text-3xl ml-12 p-10'>
                     <h2 className='lg:ml-9 xl:ml-20 2xl:ml-32'>Track</h2>
                     <h2 className='lg:mr-5'>Artist</h2>
-                    <h2 className='xl:mr-14 2xl:mr-24'>Genre</h2>
+                    <h2 className='xl:mr-14 2xl:mr-24'>Album</h2>
                 </div>
 
                 <AnimatePresence mode="wait">
@@ -94,4 +94,4 @@ export const ListMusic = () => {
             </div>
         </section>
     );
-}
+})

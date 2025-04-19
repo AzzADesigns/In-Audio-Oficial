@@ -5,7 +5,6 @@ import "./MusicPlayer.css";
 import { IoMdPause } from "react-icons/io";
 import { useAudio } from '../../../../../../contexts/AudioContext';
 
-
 interface MusicPlayerProps {
     title: string;
     artist: string;
@@ -15,7 +14,7 @@ interface MusicPlayerProps {
 
 export const MusicPlayer: React.FC<MusicPlayerProps> = ({ title, artist, album, audioUrl }) => {
     const audioRef = useRef<HTMLAudioElement>(null);
-    const { currentAudio, setCurrentAudio, isPlaying, setIsPlaying } = useAudio();
+    const { currentAudio, setCurrentAudio, isPlaying, setIsPlaying, setCurrentTrackInfo } = useAudio();
 
     const handleTogglePlay = () => {
         if (!audioRef.current) return;
@@ -27,7 +26,8 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ title, artist, album, 
             if (currentAudio) {
                 currentAudio.pause();
             }
-            setCurrentAudio(audioRef.current); 
+            setCurrentAudio(audioRef.current);
+            setCurrentTrackInfo({ title, artist, album });
             audioRef.current.play();
             setIsPlaying(true);
         }
@@ -35,6 +35,7 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ title, artist, album, 
 
     const handleEnded = () => {
         setIsPlaying(false);
+        setCurrentTrackInfo(null);
     };
 
     return (
@@ -57,4 +58,3 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ title, artist, album, 
         </div>
     );
 };
-
