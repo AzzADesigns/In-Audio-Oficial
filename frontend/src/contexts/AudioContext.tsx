@@ -35,7 +35,7 @@ export const AudioProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
     
     useEffect(() => {
-        if (trackList.length === 0 || currentIndex < 0 || currentIndex >= trackList.length) return;
+        if (trackList.length === 0 || currentIndex < 1 || currentIndex >= trackList.length) return;
 
         const track = trackList[currentIndex];
         playTrack(track);

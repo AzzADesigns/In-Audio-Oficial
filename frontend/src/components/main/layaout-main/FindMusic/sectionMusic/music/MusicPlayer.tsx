@@ -36,7 +36,7 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ title, artist, album, 
                     onClick={handlePlayPause}
                     className="px-3 py-1 rounded cursor-pointer w-10 h-10"
                 >
-                    {isThisTrackPlaying ? <IoMdPause  className='w-8 h-8'/> : <FaPlay  className='w-8 h-8'/>}
+                    {isThisTrackPlaying ? <IoMdPause  className='w-8 h-8'/> : <FaPlay  className='w-8 h-8 hover:text-secundary hover:scale-110 hover:transition-all'/>}
                 </button>
             </section>
 

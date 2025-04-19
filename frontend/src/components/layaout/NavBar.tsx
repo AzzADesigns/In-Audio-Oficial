@@ -108,7 +108,7 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                                 {/* Botón de retroceder */}
                                 <button
                                     onClick={prevTrack}
-                                    className="px-4 py-2 text-secundary hover:text-tertiary"
+                                    className="px-4 py-2 text-secundary hover:text-tertiary cursor-pointer"
                                 >
                                     <BsSkipBackward className="w-8 h-8" />
                                 </button>
@@ -116,7 +116,7 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                                 {/* Botón de play/pause */}
                                 <button
                                     onClick={handlePlayPause}
-                                    className="px-4 py-2 text-secundary hover:text-tertiary"
+                                    className="px-4 py-2 text-secundary hover:text-tertiary cursor-pointer"
                                 >
                                     {isPlaying ? (
                                         <BsPauseCircleFill className="w-8 h-8" />
@@ -128,7 +128,7 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                                 {/* Botón de avanzar */}
                                 <button
                                     onClick={nextTrack}
-                                    className="px-4 py-2 text-secundary hover:text-tertiary"
+                                    className="px-4 py-2 text-secundary hover:text-tertiary cursor-pointer"
                                 >
                                     <BsSkipForward className="w-8 h-8" />
                                 </button>
@@ -140,7 +140,7 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                                     step={0.001}
                                     value={progress}
                                     onChange={handleSeek}
-                                    className="w-full accent-secundary"
+                                    className="w-full accent-secundary cursor-pointer"
                                 />
                         </>
                     ) : null}
