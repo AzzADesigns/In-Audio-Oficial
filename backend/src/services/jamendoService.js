@@ -28,6 +28,7 @@ export const getTracks = async (limit = 7, offset = 0) => {
       artist: track.artist_name,
       album: track.album_name,
       audioUrl: track.audio,  
+      genre:track.musicinfo.tags.genres
     }));
 
     return tracks;
@@ -36,3 +37,6 @@ export const getTracks = async (limit = 7, offset = 0) => {
     return [];  
   }
 };
+
+
+//fijate en musicinfo.tags que trae
