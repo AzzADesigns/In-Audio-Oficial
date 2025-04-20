@@ -1,11 +1,11 @@
 import { RiLoginCircleFill } from "react-icons/ri";
-import { BsPauseCircleFill, BsMusicNoteList, BsFillPlayCircleFill } from "react-icons/bs";
+import { BsMusicNoteList, BsFillPlayCircleFill, BsSkipBackward, BsSkipForward, BsPauseCircleFill } from "react-icons/bs";
 import { IoSettings } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { useAudio } from "../../contexts/AudioContext";
-import { FaMusic } from "react-icons/fa";
 import { motion } from 'framer-motion';
 import React from "react";
+import { FaMusic } from "react-icons/fa6";
 
 const liIcons: JSX.Element[] = [
     <RiLoginCircleFill className="w-9 h-9 text-tertiary hover:text-secundary hover:scale-105 transition-all duration-300" />,
@@ -24,9 +24,8 @@ interface NavBarProps {
 }
 
 export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
-
     const [navItems, setNavItems] = useState<(string | JSX.Element)[]>([]);
-    const { currentAudio, currentTrackInfo, setIsPlaying, isPlaying } = useAudio();
+    const { currentAudio, currentTrackInfo, setIsPlaying, isPlaying, nextTrack, prevTrack } = useAudio();
     const [progress, setProgress] = useState<number>(0);
 
     useEffect(() => {
@@ -66,13 +65,6 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
         currentAudio.currentTime = newTime;
         setProgress(newTime / currentAudio.duration);
     };
-
-    const formatTime = (time: number): string => {
-        const minutes = Math.floor(time / 60);
-        const seconds = Math.floor(time % 60).toString().padStart(2, '0');
-        return `${minutes}:${seconds}`;
-    };
-
     return (
         <motion.nav
             className={`fixed bottom-0 w-[80%] lg:w-[36%] z-50 bg-black/50 backdrop-blur-xl border-b-4 flex flex-col justify-center items-center border-secundary text-tertiary shadow-lg rounded-4xl xl:rounded-sm transition-all ${
@@ -94,9 +86,8 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                             className="flex justify-center items-center cursor-pointer hover:text-secundary hover:scale-105 transition-all duration-300 font-uniq"
                             onClick={() => {
                                 if ((typeof item === "string" && item === "Play Music") || index === 1) {
-                                    console.log("Play Music clickeado");
                                     if (scrollToMusic) {
-                                        scrollToMusic(); // <-- llamada correcta
+                                        scrollToMusic();
                                     }
                                 }
                             }}
@@ -113,30 +104,44 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                                 <FaMusic className="text-secundary" /> {currentTrackInfo.title} - {currentTrackInfo.artist}
                             </p>
 
-                            <button
-                                onClick={handlePlayPause}
-                                className="text-4xl text-secundary hover:scale-110 transition-all duration-300"
-                            >
-                                {isPlaying ? <BsPauseCircleFill /> : <BsFillPlayCircleFill />}
-                            </button>
+                            <div className="flex gap-3 items-center">
+                                {/* Botón de retroceder */}
+                                <button
+                                    onClick={prevTrack}
+                                    className="px-4 py-2 text-secundary hover:text-tertiary cursor-pointer"
+                                >
+                                    <BsSkipBackward className="w-8 h-8" />
+                                </button>
 
-                            <div className="flex items-center gap-2 w-full px-4">
-                                <span className="text-xs">
-                                    {currentAudio ? formatTime(currentAudio.currentTime) : "0:00"}
-                                </span>
-                                <input
+                                {/* Botón de play/pause */}
+                                <button
+                                    onClick={handlePlayPause}
+                                    className="px-4 py-2 text-secundary hover:text-tertiary cursor-pointer"
+                                >
+                                    {isPlaying ? (
+                                        <BsPauseCircleFill className="w-8 h-8" />
+                                    ) : (
+                                        <BsFillPlayCircleFill className="w-8 h-8" />
+                                    )}
+                                </button>
+
+                                {/* Botón de avanzar */}
+                                <button
+                                    onClick={nextTrack}
+                                    className="px-4 py-2 text-secundary hover:text-tertiary cursor-pointer"
+                                >
+                                    <BsSkipForward className="w-8 h-8" />
+                                </button>
+                            </div>
+                            <input
                                     type="range"
                                     min={0}
                                     max={1}
                                     step={0.001}
                                     value={progress}
                                     onChange={handleSeek}
-                                    className="w-full accent-secundary"
+                                    className="w-full accent-secundary cursor-pointer"
                                 />
-                                <span className="text-xs">
-                                    {currentAudio ? formatTime(currentAudio.duration) : "0:00"}
-                                </span>
-                            </div>
                         </>
                     ) : null}
                 </div>
