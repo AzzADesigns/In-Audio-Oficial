@@ -22,6 +22,8 @@ interface AudioContextType {
     prevTrack: () => void;
     playTrack: (track: TrackInfo) => void;
     pauseTrack: () => void;
+    onEndReached: (() => void) | null;
+    setOnEndReached: (callback: (() => void) | null) => void;
 }
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
@@ -32,14 +34,13 @@ export const AudioProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const [isPlaying, setIsPlaying] = useState(false);
     const [trackList, setTrackList] = useState<TrackInfo[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [onEndReached, setOnEndReached] = useState<(() => void) | null>(null);
 
-    
     useEffect(() => {
         if (trackList.length === 0 || currentIndex < 1 || currentIndex >= trackList.length) return;
-
         const track = trackList[currentIndex];
         playTrack(track);
-    }, [currentIndex, trackList]); 
+    }, [currentIndex, trackList]);
 
     const playTrack = (track: TrackInfo) => {
         if (currentAudio) {
@@ -55,7 +56,12 @@ export const AudioProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         newAudio.onended = () => {
             setIsPlaying(false);
             setCurrentTrackInfo(null);
-            nextTrack();
+
+            if (currentIndex + 1 < trackList.length) {
+                setCurrentIndex(prev => prev + 1);
+            } else if (onEndReached) {
+                onEndReached(); 
+            }
         };
 
         setCurrentAudio(newAudio);
@@ -72,15 +78,16 @@ export const AudioProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const nextTrack = () => {
         if (trackList.length === 0) return;
 
-        const nextIndex = (currentIndex + 1) % trackList.length;
-        setCurrentIndex(nextIndex);
+        if (currentIndex + 1 < trackList.length) {
+            setCurrentIndex(prev => prev + 1);
+        } else if (onEndReached) {
+            onEndReached();
+        }
     };
 
     const prevTrack = () => {
         if (trackList.length === 0) return;
-
-        const prevIndex = (currentIndex - 1 + trackList.length) % trackList.length;
-        setCurrentIndex(prevIndex);
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + trackList.length) % trackList.length);
     };
 
     return (
@@ -98,7 +105,9 @@ export const AudioProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             nextTrack,
             prevTrack,
             playTrack,
-            pauseTrack
+            pauseTrack,
+            onEndReached,
+            setOnEndReached
         }}>
             {children}
         </AudioContext.Provider>
