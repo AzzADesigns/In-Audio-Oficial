@@ -1,7 +1,7 @@
 
 export const Footer = () => {
   return (
-    <footer className="flex flex-col md:flex-row md:justify-between w-full h-[220px] md:h-[250px]  md:items-center text-tertiary text-xs md:text-lg font-uniq mb-5">
+    <footer className="flex flex-col md:flex-row md:justify-between w-full h-[320px]  xl:h-[400px] md:h-[450px]   md:items-center text-tertiary text-xs md:text-lg font-uniq mb-5">
         <div className="">
             <img
                 src="Logo1.svg"

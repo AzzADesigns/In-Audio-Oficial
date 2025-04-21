@@ -2,44 +2,63 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MusicPlayer } from './MusicPlayer';
 import { getMusic } from '../../../../../../api/getMusic';
+import { useAudio } from '../../../../../../contexts/AudioContext';
 
 interface PlayMusic {
     id: number;
     name: string;
     artist: string;
-    album: string;
+    genre: string;
     audioUrl: string;
 }
 
-export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
+export const ListMusic = React.forwardRef<HTMLDivElement>((prop, ref) => {
     const [playMusic, setPlayMusic] = useState<PlayMusic[]>([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
+    const { setTrackList, setOnEndReached } = useAudio();
+
+    const fetchPlayMusic = async (newPage = page) => {
+        setIsLoading(true);
+        const data = await getMusic(newPage, 7);
+        setPlayMusic(data);
+        setTrackList(data.map(track => ({
+            title: track.name,
+            artist: track.artist,
+            genre: track.genre,
+            audioUrl: track.audioUrl
+        })));
+        setIsLoading(false);
+    };
 
     useEffect(() => {
-        const fetchPlayMusic = async () => {
-            setIsLoading(true);
-            const data = await getMusic(page, 7);
-            setPlayMusic(data);
-            setIsLoading(false);
-        };
-        fetchPlayMusic();
+        fetchPlayMusic(page);
     }, [page]);
 
+    useEffect(() => {
+        setOnEndReached(() => () => {
+            setPage(prev => prev + 1);
+        });
+
+        return () => setOnEndReached(null);
+    }, [setOnEndReached]);
+
     return (
-        <section  ref={ref} className='xl:w-[72%] bg-primary'>
+        <section ref={ref} className='xl:w-[68%] bg-primary'>
             <div>
                 <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider mb-10'>
                     <span className='text-secundary'>O</span>ur Music
                 </h3>
             </div>
-            <div className='w-full h-[660px] flex-center '>
+
+            <div className='w-full md:w-[600px] lg:w-[800px] 2xl:w-[1060px] h-[660px] flex-center'>
                 <div className='text-tertiary bg-primary w-full h-20 flex justify-between items-center font-uniq text-lg lg:text-3xl ml-12 p-10'>
                     <h2 className='lg:ml-9 xl:ml-20 2xl:ml-32'>Track</h2>
                     <h2 className='lg:mr-5'>Artist</h2>
-                    <h2 className='xl:mr-14 2xl:mr-24'>Album</h2>
+                    <h2 className='xl:mr-14 2xl:mr-24 hidden md:block'>Genre</h2>
                 </div>
 
+                {/*PLAY MUSIC */}
                 <AnimatePresence mode="wait">
                     {isLoading ? (
                         <motion.div
@@ -49,7 +68,7 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
-                            Cargando...
+                            Loading...
                         </motion.div>
                     ) : (
                         <motion.div
@@ -65,8 +84,8 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
                                     <MusicPlayer 
                                         title={file.name} 
                                         artist={file.artist} 
-                                        album={file.album} 
-                                        audioUrl={file.audioUrl}
+                                        genre={file.genre} 
+                                        audioUrl={file.audioUrl} 
                                     />
                                 </div>
                             ))}
@@ -75,9 +94,9 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
                 </AnimatePresence>
             </div>
 
-            <div className="flex justify-center items-center gap-4 mt-4">
+            <div className="flex justify-center lg:justify-end items-center  gap-4 mt-4">
                 <button
-                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary transition cursor-pointer"
+                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary hover:text-primary transition cursor-pointer"
                     disabled={page === 1 || isLoading}
                     onClick={() => setPage(page - 1)}
                 >
@@ -85,7 +104,7 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
                 </button>
                 <span className="text-tertiary text-lg">Página {page}</span>
                 <button
-                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary transition cursor-pointer"
+                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary hover:text-primary  transition cursor-pointer"
                     disabled={isLoading}
                     onClick={() => setPage(page + 1)}
                 >
@@ -94,4 +113,4 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
             </div>
         </section>
     );
-})
+});

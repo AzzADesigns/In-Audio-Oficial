@@ -1,11 +1,11 @@
 import { RiLoginCircleFill } from "react-icons/ri";
-import { BsPauseCircleFill, BsMusicNoteList, BsFillPlayCircleFill } from "react-icons/bs";
+import { BsMusicNoteList, BsFillPlayCircleFill, BsSkipBackward, BsSkipForward, BsPauseCircleFill } from "react-icons/bs";
 import { IoSettings } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { useAudio } from "../../contexts/AudioContext";
-import { FaMusic } from "react-icons/fa";
 import { motion } from 'framer-motion';
 import React from "react";
+import { FaMusic } from "react-icons/fa6";
 
 const liIcons: JSX.Element[] = [
     <RiLoginCircleFill className="w-9 h-9 text-tertiary hover:text-secundary hover:scale-105 transition-all duration-300" />,
@@ -24,9 +24,8 @@ interface NavBarProps {
 }
 
 export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
-
     const [navItems, setNavItems] = useState<(string | JSX.Element)[]>([]);
-    const { currentAudio, currentTrackInfo, setIsPlaying, isPlaying } = useAudio();
+    const { currentAudio, currentTrackInfo, setIsPlaying, isPlaying, nextTrack, prevTrack } = useAudio();
     const [progress, setProgress] = useState<number>(0);
 
     useEffect(() => {
@@ -67,36 +66,70 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
         setProgress(newTime / currentAudio.duration);
     };
 
-    const formatTime = (time: number): string => {
-        const minutes = Math.floor(time / 60);
-        const seconds = Math.floor(time % 60).toString().padStart(2, '0');
-        return `${minutes}:${seconds}`;
-    };
-
     return (
         <motion.nav
-            className={`fixed bottom-0 w-[80%] lg:w-[36%] z-50 bg-black/50 backdrop-blur-xl border-b-4 flex flex-col justify-center items-center border-secundary text-tertiary shadow-lg rounded-4xl xl:rounded-sm transition-all ${
-                currentTrackInfo ? "h-52 xl:bottom-[80%]" : "h-20 xl:bottom-[90%]"
+            layout
+            className={`fixed bottom-2 w-[90%] xl:w-[60%] 2xl:w-[30%] z-50 bg-black/50 backdrop-blur-xl border-t-4 flex flex-col justify-between border-secundary text-tertiary shadow-lg rounded-4xl transition-all ${
+                currentTrackInfo ? 'py-3' : 'py-6'
             }`}
             transition={{
                 layout: {
-                    type: "tween",
-                    ease: "easeInOut",
-                    duration: 0.5,
-                },
+                    type: "spring",
+                    stiffness: 80,
+                    damping: 20
+                }
             }}
         >
-            <div className="w-full mx-auto flex flex-col justify-center items-center md:h-20 px-6 mt-5">
-                <ul className={`w-[90%] justify-between flex items-center ${navItems === liWords ? 'gap-12 text-lg' : 'gap-6'}`}>
+            <motion.div
+                layout
+                className={`flex justify-center items-center w-full mb-4 ${
+                    currentTrackInfo ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
+                } transition-all duration-500`}
+            >
+                {currentTrackInfo && (
+                    <div className="w-full max-w-4xl flex flex-col md:flex-row justify-center items-center gap-4 px-4">
+                        <p className="text-xs md:text-sm text-center flex gap-2 items-center text-tertiary">
+                            <FaMusic className="text-secundary" /> {currentTrackInfo.title} - {currentTrackInfo.artist}
+                        </p>
+
+                        <div className="flex gap-3 items-center">
+                            <button onClick={prevTrack} className="px-2 py-1 text-secundary hover:text-tertiary cursor-pointer">
+                                <BsSkipBackward className="w-8 h-8" />
+                            </button>
+                            <button onClick={handlePlayPause} className="px-2 py-1 text-secundary hover:text-tertiary cursor-pointer">
+                                {isPlaying ? (
+                                    <BsPauseCircleFill className="w-8 h-8" />
+                                ) : (
+                                    <BsFillPlayCircleFill className="w-8 h-8" />
+                                )}
+                            </button>
+                            <button onClick={nextTrack} className="px-2 py-1 text-secundary hover:text-tertiary cursor-pointer">
+                                <BsSkipForward className="w-8 h-8" />
+                            </button>
+                        </div>
+
+                        <input
+                            type="range"
+                            min={0}
+                            max={1}
+                            step={0.001}
+                            value={progress}
+                            onChange={handleSeek}
+                            className="w-full md:w-1/2 accent-secundary cursor-pointer"
+                        />
+                    </div>
+                )}
+            </motion.div>
+            <div className="w-full flex justify-center items-center">
+                <ul className={`flex ${navItems === liWords ? 'gap-12 text-lg' : 'gap-6'} justify-between w-full px-5 items-center`}>
                     {navItems.map((item, index) => (
                         <li
                             key={index}
                             className="flex justify-center items-center cursor-pointer hover:text-secundary hover:scale-105 transition-all duration-300 font-uniq"
                             onClick={() => {
                                 if ((typeof item === "string" && item === "Play Music") || index === 1) {
-                                    console.log("Play Music clickeado");
                                     if (scrollToMusic) {
-                                        scrollToMusic(); // <-- llamada correcta
+                                        scrollToMusic();
                                     }
                                 }
                             }}
@@ -105,42 +138,9 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                         </li>
                     ))}
                 </ul>
-
-                <div className="flex flex-col items-center gap-2 mt-4 w-full">
-                    {currentTrackInfo ? (
-                        <>
-                            <p className="text-sm text-center flex gap-5 items-center">
-                                <FaMusic className="text-secundary" /> {currentTrackInfo.title} - {currentTrackInfo.artist}
-                            </p>
-
-                            <button
-                                onClick={handlePlayPause}
-                                className="text-4xl text-secundary hover:scale-110 transition-all duration-300"
-                            >
-                                {isPlaying ? <BsPauseCircleFill /> : <BsFillPlayCircleFill />}
-                            </button>
-
-                            <div className="flex items-center gap-2 w-full px-4">
-                                <span className="text-xs">
-                                    {currentAudio ? formatTime(currentAudio.currentTime) : "0:00"}
-                                </span>
-                                <input
-                                    type="range"
-                                    min={0}
-                                    max={1}
-                                    step={0.001}
-                                    value={progress}
-                                    onChange={handleSeek}
-                                    className="w-full accent-secundary"
-                                />
-                                <span className="text-xs">
-                                    {currentAudio ? formatTime(currentAudio.duration) : "0:00"}
-                                </span>
-                            </div>
-                        </>
-                    ) : null}
-                </div>
             </div>
+
+            
         </motion.nav>
     );
 };
