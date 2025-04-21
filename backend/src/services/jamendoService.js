@@ -26,7 +26,6 @@ export const getTracks = async (limit = 7, offset = 0) => {
     const tracks = response.data.results.map((track) => ({
       name: track.name,
       artist: track.artist_name,
-      album: track.album_name,
       audioUrl: track.audio,  
       genre:track.musicinfo.tags.genres
     }));

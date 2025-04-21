@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 interface TrackInfo {
     title: string;
     artist: string;
-    album: string;
+    genre: string;
     audioUrl: string;
 }
 

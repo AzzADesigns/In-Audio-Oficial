@@ -120,7 +120,7 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                     </div>
                 )}
             </motion.div>
-            <div className="w-full flex justify-center">
+            <div className="w-full flex justify-center items-center">
                 <ul className={`flex ${navItems === liWords ? 'gap-12 text-lg' : 'gap-6'} justify-between w-full px-5 items-center`}>
                     {navItems.map((item, index) => (
                         <li

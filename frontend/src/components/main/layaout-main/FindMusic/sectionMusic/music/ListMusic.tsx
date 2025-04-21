@@ -8,7 +8,7 @@ interface PlayMusic {
     id: number;
     name: string;
     artist: string;
-    album: string;
+    genre: string;
     audioUrl: string;
 }
 
@@ -25,7 +25,7 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((prop, ref) => {
         setTrackList(data.map(track => ({
             title: track.name,
             artist: track.artist,
-            album: track.album,
+            genre: track.genre,
             audioUrl: track.audioUrl
         })));
         setIsLoading(false);
@@ -51,13 +51,14 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((prop, ref) => {
                 </h3>
             </div>
 
-            <div className='w-full h-[660px] flex-center'>
+            <div className='w-full md:w-[600px] lg:w-[800px] 2xl:w-[1060px] h-[660px] flex-center'>
                 <div className='text-tertiary bg-primary w-full h-20 flex justify-between items-center font-uniq text-lg lg:text-3xl ml-12 p-10'>
                     <h2 className='lg:ml-9 xl:ml-20 2xl:ml-32'>Track</h2>
                     <h2 className='lg:mr-5'>Artist</h2>
-                    <h2 className='xl:mr-14 2xl:mr-24'>Album</h2>
+                    <h2 className='xl:mr-14 2xl:mr-24 hidden md:block'>Genre</h2>
                 </div>
 
+                {/*PLAY MUSIC */}
                 <AnimatePresence mode="wait">
                     {isLoading ? (
                         <motion.div
@@ -67,7 +68,7 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((prop, ref) => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
-                            Cargando...
+                            Loading...
                         </motion.div>
                     ) : (
                         <motion.div
@@ -83,7 +84,7 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((prop, ref) => {
                                     <MusicPlayer 
                                         title={file.name} 
                                         artist={file.artist} 
-                                        album={file.album} 
+                                        genre={file.genre} 
                                         audioUrl={file.audioUrl} 
                                     />
                                 </div>

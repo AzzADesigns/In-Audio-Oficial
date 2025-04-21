@@ -1,10 +1,10 @@
 import axios from "axios"
 
 interface PlayMusic {
-    id?: number;    
+    id: number;
     name: string;
     artist: string;
-    album: string;
+    genre: string;
     audioUrl: string;
 }
 
