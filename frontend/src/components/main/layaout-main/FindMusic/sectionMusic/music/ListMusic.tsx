@@ -12,23 +12,32 @@ interface PlayMusic {
     audioUrl: string;
 }
 
-export const ListMusic = React.forwardRef<HTMLDivElement>((prop, ref) => {
+export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
     const [playMusic, setPlayMusic] = useState<PlayMusic[]>([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
-    const { setTrackList, setOnEndReached } = useAudio();
+
+    const { updateTrackList, setOnEndReached } = useAudio();
 
     const fetchPlayMusic = async (newPage = page) => {
         setIsLoading(true);
-        const data = await getMusic(newPage, 7);
-        setPlayMusic(data);
-        setTrackList(data.map(track => ({
-            title: track.name,
-            artist: track.artist,
-            genre: track.genre,
-            audioUrl: track.audioUrl
-        })));
-        setIsLoading(false);
+        try {
+            const data = await getMusic(newPage, 7);
+            setPlayMusic(data);
+
+            // Actualiza la lista global del AudioContext
+            updateTrackList(data.map(track => ({
+                title: track.name,
+                artist: track.artist,
+                genre: track.genre,
+                audioUrl: track.audioUrl
+            })));
+
+        } catch (error) {
+            console.error('Error cargando música:', error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -58,7 +67,6 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((prop, ref) => {
                     <h2 className='xl:mr-14 2xl:mr-24 hidden md:block'>Genre</h2>
                 </div>
 
-                {/*PLAY MUSIC */}
                 <AnimatePresence mode="wait">
                     {isLoading ? (
                         <motion.div
@@ -94,19 +102,19 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((prop, ref) => {
                 </AnimatePresence>
             </div>
 
-            <div className="flex justify-center lg:justify-end items-center  gap-4 mt-4">
+            <div className="flex justify-center lg:justify-end items-center gap-4 mt-4">
                 <button
                     className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary hover:text-primary transition cursor-pointer"
                     disabled={page === 1 || isLoading}
-                    onClick={() => setPage(page - 1)}
+                    onClick={() => setPage(prev => prev - 1)}
                 >
                     Anterior
                 </button>
                 <span className="text-tertiary text-lg">Página {page}</span>
                 <button
-                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary hover:text-primary  transition cursor-pointer"
+                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary hover:text-primary transition cursor-pointer"
                     disabled={isLoading}
-                    onClick={() => setPage(page + 1)}
+                    onClick={() => setPage(prev => prev + 1)}
                 >
                     Siguiente
                 </button>
