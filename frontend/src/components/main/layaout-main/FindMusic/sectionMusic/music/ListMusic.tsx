@@ -12,7 +12,7 @@ interface PlayMusic {
     audioUrl: string;
 }
 
-export const ListMusic = React.forwardRef<HTMLDivElement>(( ref) => {
+export const ListMusic = React.forwardRef<HTMLDivElement>((prop, ref) => {
     const [playMusic, setPlayMusic] = useState<PlayMusic[]>([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +44,7 @@ export const ListMusic = React.forwardRef<HTMLDivElement>(( ref) => {
     }, [setOnEndReached]);
 
     return (
-        <section ref={ref} className='xl:w-[72%] bg-primary'>
+        <section ref={ref} className='xl:w-[68%] bg-primary'>
             <div>
                 <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider mb-10'>
                     <span className='text-secundary'>O</span>ur Music
@@ -93,9 +93,9 @@ export const ListMusic = React.forwardRef<HTMLDivElement>(( ref) => {
                 </AnimatePresence>
             </div>
 
-            <div className="flex justify-center items-center gap-4 mt-4">
+            <div className="flex justify-center lg:justify-end items-center  gap-4 mt-4">
                 <button
-                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary transition cursor-pointer"
+                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary hover:text-primary transition cursor-pointer"
                     disabled={page === 1 || isLoading}
                     onClick={() => setPage(page - 1)}
                 >
@@ -103,7 +103,7 @@ export const ListMusic = React.forwardRef<HTMLDivElement>(( ref) => {
                 </button>
                 <span className="text-tertiary text-lg">Página {page}</span>
                 <button
-                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary transition cursor-pointer"
+                    className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary hover:text-primary  transition cursor-pointer"
                     disabled={isLoading}
                     onClick={() => setPage(page + 1)}
                 >

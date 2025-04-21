@@ -65,21 +65,63 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
         currentAudio.currentTime = newTime;
         setProgress(newTime / currentAudio.duration);
     };
+
     return (
         <motion.nav
-            className={`fixed bottom-0 w-[80%] lg:w-[36%] z-50 bg-black/50 backdrop-blur-xl border-b-4 flex flex-col justify-center items-center border-secundary text-tertiary shadow-lg rounded-4xl xl:rounded-sm transition-all ${
-                currentTrackInfo ? "h-52 xl:bottom-[80%]" : "h-20 xl:bottom-[90%]"
+            layout
+            className={`fixed bottom-2 w-[90%] xl:w-[60%] 2xl:w-[30%] z-50 bg-black/50 backdrop-blur-xl border-t-4 flex flex-col justify-between border-secundary text-tertiary shadow-lg rounded-4xl transition-all ${
+                currentTrackInfo ? 'py-3' : 'py-6'
             }`}
             transition={{
                 layout: {
-                    type: "tween",
-                    ease: "easeInOut",
-                    duration: 0.5,
-                },
+                    type: "spring",
+                    stiffness: 80,
+                    damping: 20
+                }
             }}
         >
-            <div className="w-full mx-auto flex flex-col justify-center items-center md:h-20 px-6 mt-5">
-                <ul className={`w-[90%] justify-between flex items-center ${navItems === liWords ? 'gap-12 text-lg' : 'gap-6'}`}>
+            <motion.div
+                layout
+                className={`flex justify-center items-center w-full mb-4 ${
+                    currentTrackInfo ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
+                } transition-all duration-500`}
+            >
+                {currentTrackInfo && (
+                    <div className="w-full max-w-4xl flex flex-col md:flex-row justify-center items-center gap-4 px-4">
+                        <p className="text-xs md:text-sm text-center flex gap-2 items-center text-tertiary">
+                            <FaMusic className="text-secundary" /> {currentTrackInfo.title} - {currentTrackInfo.artist}
+                        </p>
+
+                        <div className="flex gap-3 items-center">
+                            <button onClick={prevTrack} className="px-2 py-1 text-secundary hover:text-tertiary cursor-pointer">
+                                <BsSkipBackward className="w-8 h-8" />
+                            </button>
+                            <button onClick={handlePlayPause} className="px-2 py-1 text-secundary hover:text-tertiary cursor-pointer">
+                                {isPlaying ? (
+                                    <BsPauseCircleFill className="w-8 h-8" />
+                                ) : (
+                                    <BsFillPlayCircleFill className="w-8 h-8" />
+                                )}
+                            </button>
+                            <button onClick={nextTrack} className="px-2 py-1 text-secundary hover:text-tertiary cursor-pointer">
+                                <BsSkipForward className="w-8 h-8" />
+                            </button>
+                        </div>
+
+                        <input
+                            type="range"
+                            min={0}
+                            max={1}
+                            step={0.001}
+                            value={progress}
+                            onChange={handleSeek}
+                            className="w-full md:w-1/2 accent-secundary cursor-pointer"
+                        />
+                    </div>
+                )}
+            </motion.div>
+            <div className="w-full flex justify-center">
+                <ul className={`flex ${navItems === liWords ? 'gap-12 text-lg' : 'gap-6'} justify-between w-full px-5 items-center`}>
                     {navItems.map((item, index) => (
                         <li
                             key={index}
@@ -96,56 +138,9 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                         </li>
                     ))}
                 </ul>
-
-                <div className="flex flex-col items-center gap-2 mt-4 w-full">
-                    {currentTrackInfo ? (
-                        <>
-                            <p className="text-sm text-center flex gap-5 items-center">
-                                <FaMusic className="text-secundary" /> {currentTrackInfo.title} - {currentTrackInfo.artist}
-                            </p>
-
-                            <div className="flex gap-3 items-center">
-                                {/* Botón de retroceder */}
-                                <button
-                                    onClick={prevTrack}
-                                    className="px-4 py-2 text-secundary hover:text-tertiary cursor-pointer"
-                                >
-                                    <BsSkipBackward className="w-8 h-8" />
-                                </button>
-
-                                {/* Botón de play/pause */}
-                                <button
-                                    onClick={handlePlayPause}
-                                    className="px-4 py-2 text-secundary hover:text-tertiary cursor-pointer"
-                                >
-                                    {isPlaying ? (
-                                        <BsPauseCircleFill className="w-8 h-8" />
-                                    ) : (
-                                        <BsFillPlayCircleFill className="w-8 h-8" />
-                                    )}
-                                </button>
-
-                                {/* Botón de avanzar */}
-                                <button
-                                    onClick={nextTrack}
-                                    className="px-4 py-2 text-secundary hover:text-tertiary cursor-pointer"
-                                >
-                                    <BsSkipForward className="w-8 h-8" />
-                                </button>
-                            </div>
-                            <input
-                                    type="range"
-                                    min={0}
-                                    max={1}
-                                    step={0.001}
-                                    value={progress}
-                                    onChange={handleSeek}
-                                    className="w-full accent-secundary cursor-pointer"
-                                />
-                        </>
-                    ) : null}
-                </div>
             </div>
+
+            
         </motion.nav>
     );
 };

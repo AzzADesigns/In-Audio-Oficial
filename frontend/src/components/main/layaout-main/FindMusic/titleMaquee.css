@@ -1,4 +1,4 @@
-.marquee-container {
+.marquee-container-find {
     position: relative;
     overflow: hidden;
     white-space: nowrap;
@@ -6,13 +6,9 @@
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
-.marquee-track {
+.marquee-track-find {
     display: inline-flex;
-    animation: marquee-find 20s linear infinite;
-}
-
-.marquee-track span {
-    margin-right: 3rem; 
+    animation: marquee-find 30s linear infinite;
 }
 
 @keyframes marquee-find {
