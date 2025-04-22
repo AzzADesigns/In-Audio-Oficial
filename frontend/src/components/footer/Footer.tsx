@@ -1,7 +1,7 @@
 
 export const Footer = () => {
   return (
-    <footer className="flex flex-col md:flex-row md:justify-between w-full h-[320px]  xl:h-[400px] md:h-[450px]   md:items-center text-tertiary text-xs md:text-lg font-uniq mb-5">
+    <footer className="flex flex-col md:flex-row lg:h-14 md:justify-between w-full mt-20  lg:text-xl   md:items-center text-tertiary text-md font-uniq mb-5">
         <div className="">
             <img
                 src="Logo1.svg"
@@ -11,12 +11,8 @@ export const Footer = () => {
         </div>
 
         <section className="flex w-full justify-between mt-5">
-            <div className="flex flex-col gap-2">
-                <p>Develop: AzzADesigns</p>
-                <p>Phone: 2236979758</p>
-                <p>Gmail: walter.azariel.moreno</p>
-            </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex  gap-5 lg:gap-7 justify-center xl:justify-end w-full">
+    
                 <p>Linkedin:{" "}
                     <a 
                         href="https://www.linkedin.com/in/azariel-moreno-4267ba254/"
@@ -33,7 +29,7 @@ export const Footer = () => {
                         className="underline cursor-pointer hover:text-secundary"
                     >AzzADesigns</a>    
                 </p> 
-                <a href="">Instragram: Azza More</a>
+                
             </div>
         </section>
     </footer>

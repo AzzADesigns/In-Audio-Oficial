@@ -53,18 +53,19 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
     }, [setOnEndReached]);
 
     return (
-        <section ref={ref} className='xl:w-[68%] bg-primary'>
-            <div>
-                <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider mb-10'>
+        <section ref={ref} className='xl:w-[68%] mt-20 bg-primary xl:mr-5'>
+            <div className='flex flex-col lg:flex-row w-full justify-between'>
+                <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider '>
                     <span className='text-secundary'>O</span>ur Music
                 </h3>
+                <p className='text-secundary w-[95%] mt-2 lg:mt-0 lg:w-60 text-xs'>Please note that the Jamendo API may take time to load, even if the songs appear.</p>
             </div>
 
-            <div className='w-full md:w-[600px] lg:w-[800px] 2xl:w-[1060px] h-[660px] flex-center'>
+            <div className='w-full md:w-[400px] mt-10 lg:mt-20 lg:w-[600px] xl:w-[850px] 2xl:w-[1190px] h-[590px] flex-center'>
                 <div className='text-tertiary bg-primary w-full h-20 flex justify-between items-center font-uniq text-lg lg:text-3xl ml-12 p-10'>
                     <h2 className='lg:ml-9 xl:ml-20 2xl:ml-32'>Track</h2>
-                    <h2 className='lg:mr-5'>Artist</h2>
-                    <h2 className='xl:mr-14 2xl:mr-24 hidden md:block'>Genre</h2>
+                    <h2 className='md:mr-10 lg:mr-5'>Artist</h2>
+                    <h2 className='xl:mr-14 2xl:mr-24 hidden xl:block'>Genre</h2>
                 </div>
 
                 <AnimatePresence mode="wait">
@@ -102,7 +103,7 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
                 </AnimatePresence>
             </div>
 
-            <div className="flex justify-center lg:justify-end items-center gap-4 mt-4">
+            <div className="flex justify-center w-full max-w-[1050px] lg:justify-end items-center gap-4 mt-4">
                 <button
                     className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary hover:text-primary transition cursor-pointer"
                     disabled={page === 1 || isLoading}

@@ -1,5 +1,4 @@
 import { PromotionAndMusic } from "./sectionMusic/PromotionAndMusic"
-import { Search } from "./sectionSearch/Search"
 import "./titleMaquee.css"
 
 
@@ -30,9 +29,6 @@ export const ListenToMusic = ({ musicRef="string" }) => {
                 </div>
             </h1>
 
-            </div>
-            <div className=" w-full flex-center">
-                <Search />
             </div>
             <PromotionAndMusic musicRef={musicRef} />
         </div>

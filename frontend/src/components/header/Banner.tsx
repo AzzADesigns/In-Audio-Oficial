@@ -31,14 +31,10 @@ export const Banner = () => {
         <header className="flex-center w-full h-full">
             <div className="h-96 md:h-[750px] 2xl:h-full w-full bg-red-200">
                 <img src="/banner.png" alt="imagen del banner" className="w-full h-full object-cover" />
-                <button className="cursor-pointer text-tertiary hover:text-secundary absolute top-0">
-                    <p className="xl:w-64 xl:ml-28 2xl:ml-5 gap-3 xl:h-32 xl:flex xl:justify-center xl:items-center 2xl:text-2xl font-dots underline underline-offset-10 decoration-4 transition-all duration-200 hidden 2xl:flex">
-                        See genres <BsFillPlayCircleFill />
-                    </p>
-                </button>
+
             </div>
 
-            <figure className="absolute top-5 lg:top-24 2xl:static 2xl:h-auto">
+            <figure className="absolute top-10 lg:top-24 2xl:static 2xl:h-auto">
                 <img
                     src="Logo1.svg"
                     alt=""

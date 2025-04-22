@@ -8,9 +8,9 @@ import React from "react";
 import { FaMusic } from "react-icons/fa6";
 
 const liIcons: JSX.Element[] = [
-    <RiLoginCircleFill className="w-9 h-9 text-tertiary hover:text-secundary hover:scale-105 transition-all duration-300" />,
-    <BsMusicNoteList className="w-10 h-10 text-tertiary hover:text-secundary hover:scale-105 transition-all duration-300" />,
-    <IoSettings className="w-8 h-8 text-tertiary hover:text-secundary hover:scale-105 transition-all duration-300" />,
+    <RiLoginCircleFill className="w-5 h-5 text-tertiary hover:text-secundary hover:scale-105 transition-all duration-300" />,
+    <BsMusicNoteList className="w-7 h-7 text-tertiary hover:text-secundary hover:scale-105 transition-all duration-300" />,
+    <IoSettings className="w-5 h-5 text-tertiary hover:text-secundary hover:scale-105 transition-all duration-300" />,
 ];
 
 const liWords: string[] = [
@@ -69,7 +69,7 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
     return (
         <motion.nav
             layout
-            className={`fixed bottom-2 w-[90%] xl:w-[60%] 2xl:w-[30%] z-50 bg-black/50 backdrop-blur-xl border-t-4 flex flex-col justify-between border-secundary text-tertiary shadow-lg rounded-4xl transition-all ${
+            className={`fixed bottom-16 w-[70%] max-w-[1200px] xl:w-[40%] 2xl:w-[45%] z-50 bg-black/50 backdrop-blur-xl border-t-4 flex flex-col justify-between border-secundary text-tertiary shadow-lg rounded-4xl transition-all ${
                 currentTrackInfo ? 'py-3' : 'py-6'
             }`}
             transition={{
@@ -86,9 +86,11 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                     currentTrackInfo ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
                 } transition-all duration-500`}
             >
+
+                {/*CONTROLADORA DE SONIDO */}
                 {currentTrackInfo && (
                     <div className="w-full max-w-4xl flex flex-col md:flex-row justify-center items-center gap-4 px-4">
-                        <p className="text-xs md:text-sm text-center flex gap-2 items-center text-tertiary">
+                        <p className="text-xs max-w-32 md:text-sm text-center flex gap-2 items-center text-tertiary">
                             <FaMusic className="text-secundary" /> {currentTrackInfo.title} - {currentTrackInfo.artist}
                         </p>
 
@@ -120,6 +122,8 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                     </div>
                 )}
             </motion.div>
+
+            {/*BARRA DE NAVEGACION */}
             <div className="w-full flex justify-center items-center">
                 <ul className={`flex ${navItems === liWords ? 'gap-12 text-lg' : 'gap-6'} justify-between w-full px-5 items-center`}>
                     {navItems.map((item, index) => (
