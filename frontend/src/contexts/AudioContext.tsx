@@ -24,6 +24,7 @@ interface AudioContextType {
     pauseTrack: () => void;
     onEndReached: (() => void) | null;
     setOnEndReached: (callback: (() => void) | null) => void;
+    updateTrackList: (list: TrackInfo[]) => void;
 }
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
@@ -36,10 +37,17 @@ export const AudioProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const [currentIndex, setCurrentIndex] = useState(0);
     const [onEndReached, setOnEndReached] = useState<(() => void) | null>(null);
 
+    // Actualiza la lista y reinicia al primer track
+    const updateTrackList = (list: TrackInfo[]) => {
+        setTrackList(list);
+        setCurrentIndex(0);
+    };
+
     useEffect(() => {
-        if (trackList.length === 0 || currentIndex < 1 || currentIndex >= trackList.length) return;
+        if (trackList.length === 0 || currentIndex < 0 || currentIndex >= trackList.length) return;
         const track = trackList[currentIndex];
         playTrack(track);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex, trackList]);
 
     const playTrack = (track: TrackInfo) => {
@@ -60,7 +68,7 @@ export const AudioProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             if (currentIndex + 1 < trackList.length) {
                 setCurrentIndex(prev => prev + 1);
             } else if (onEndReached) {
-                onEndReached(); 
+                onEndReached();
             }
         };
 
@@ -107,7 +115,8 @@ export const AudioProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             playTrack,
             pauseTrack,
             onEndReached,
-            setOnEndReached
+            setOnEndReached,
+            updateTrackList
         }}>
             {children}
         </AudioContext.Provider>

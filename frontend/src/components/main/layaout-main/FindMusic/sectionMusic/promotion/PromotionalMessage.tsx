@@ -1,11 +1,11 @@
-import React from 'react'
 import { Presentation } from '../../../sectionGenres/TitleAndPresentation/Presentation'
+
 
 export const PromotionalMessage = () => {
   return (
-    <section className='xl:w-[25%] mt-5 flex xl:flex-col justify-center items-center lg:items-start bg-primary'>
+    <section className='xl:w-[25%] mt-20 md:mt-5 flex xl:flex-col justify-center items-center lg:items-start bg-primary'>
         <div className=''>
-            <h4 className='font-dots flex  md:ml-0 md:flex-col gap-4 xl:gap-4 text-2xl md:text-4xl xl:text-4xl 2xl:text-6xl text-tertiary tracking-wider   mb-10 xl:mb-20'>
+            <h4 className='font-dots flex w-full md:ml-0 md:flex-col gap-4 xl:gap-4 text-2xl md:text-4xl xl:text-4xl 2xl:text-6xl text-tertiary  lg:tracking-wider   mb-10 xl:mb-20'>
                 <p>
                     <span className='text-secundary'>D</span>iscover
                 </p>
