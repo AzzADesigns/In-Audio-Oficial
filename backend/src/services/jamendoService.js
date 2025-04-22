@@ -5,38 +5,38 @@ dotenv.config();
 const CLIENT_ID = process.env.JAMENDO_API_KEY;
 
 export const getTracks = async (limit = 8, offset = 0) => {
-  try {
-    const response = await axios.get('https://api.jamendo.com/v3.0/tracks', {
-      params: {
-        client_id: CLIENT_ID,
-        format: 'json',
-        include: 'musicinfo',
-        groupby: 'artist_id',
-        limit,      // Solicitar 8 canciones
-        offset      // Desplazamiento (para la paginación)
-      },
-    });
+    try {
+        const response = await axios.get('https://api.jamendo.com/v3.0/tracks', {
+            params: {
+                client_id: CLIENT_ID,
+                format: 'json',
+                include: 'musicinfo',
+                groupby: 'artist_id',
+                limit,    
+                offset     
+            },
+        });
 
-    console.log("Tracks Response:", response.data);
+        console.log("Tracks Response:", response.data);
 
-    if (!response.data.results) {
-        throw new Error('No se encontraron resultados');
-    }
-
-
-    const tracksWithoutFirst = response.data.results.slice(1); 
+        if (!response.data.results) {
+            throw new Error('No se encontraron resultados');
+        }
 
 
-    const validTracks = tracksWithoutFirst.slice(0, 7); 
+        const tracksWithoutFirst = response.data.results.slice(1); 
 
-    console.log("Valid tracks:", validTracks);
 
-    const tracks = validTracks.map((track) => ({
-        name: track.name,
-        artist: track.artist_name,
-        audioUrl: track.audio,
-        genre: track.musicinfo?.tags?.genres || [], 
-    }));
+        const validTracks = tracksWithoutFirst.slice(0, 7); 
+
+        console.log("Valid tracks:", validTracks);
+
+        const tracks = validTracks.map((track) => ({
+            name: track.name,
+            artist: track.artist_name,
+            audioUrl: track.audio,
+            genre: track.musicinfo?.tags?.genres || [], 
+        }));
 
     return tracks;
     } catch (error) {
@@ -45,4 +45,3 @@ export const getTracks = async (limit = 8, offset = 0) => {
     }
 };
 
-//fijate en musicinfo.tags que trae

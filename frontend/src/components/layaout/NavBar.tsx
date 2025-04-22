@@ -25,6 +25,7 @@ interface NavBarProps {
 
 export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
     const [navItems, setNavItems] = useState<(string | JSX.Element)[]>([]);
+    const [showMessage, setShowMessage] = useState(false);
     const { currentAudio, currentTrackInfo, setIsPlaying, isPlaying, nextTrack, prevTrack } = useAudio();
     const [progress, setProgress] = useState<number>(0);
 
@@ -66,6 +67,11 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
         setProgress(newTime / currentAudio.duration);
     };
 
+    const showUnavailableMessage = () => {
+        setShowMessage(true);
+        setTimeout(() => setShowMessage(false), 3000); // Mensaje desaparece después de 3 segundos
+    };
+
     return (
         <motion.nav
             layout
@@ -80,19 +86,26 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                 }
             }}
         >
+            {/* Card de mensaje de "Función aún no disponible" */}
+            {showMessage && (
+                <div className="absolute bottom-52 lg:bottom-28 left-1/2 transform -translate-x-1/2 p-4 bg-primary text-tertiary border border-secundary rounded-lg shadow-md">
+                    Poximamente
+                </div>
+            )}
+
             <motion.div
                 layout
                 className={`flex justify-center items-center w-full mb-4 ${
                     currentTrackInfo ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
                 } transition-all duration-500`}
             >
-
-                {/*CONTROLADORA DE SONIDO */}
+                {/* CONTROLADORA DE SONIDO */}
                 {currentTrackInfo && (
                     <div className="w-full max-w-4xl flex flex-col md:flex-row justify-center items-center gap-4 px-4">
-                        <p className="text-xs max-w-32 md:text-sm text-center flex gap-2 items-center text-tertiary">
-                            <FaMusic className="text-secundary" /> {currentTrackInfo.title} - {currentTrackInfo.artist}
-                        </p>
+                        <div className="text-xs max-w-52 md:text-sm text-center flex gap-2 items-center text-tertiary">
+                            <FaMusic className="text-secundary w-5 h-5 " /> 
+                            <p className="w-40">{currentTrackInfo.title} - {currentTrackInfo.artist}</p>
+                        </div>
 
                         <div className="flex gap-3 items-center">
                             <button onClick={prevTrack} className="px-2 py-1 text-secundary hover:text-tertiary cursor-pointer">
@@ -123,7 +136,7 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                 )}
             </motion.div>
 
-            {/*BARRA DE NAVEGACION */}
+            {/* BARRA DE NAVEGACION */}
             <div className="w-full flex justify-center items-center">
                 <ul className={`flex ${navItems === liWords ? 'gap-12 text-lg' : 'gap-6'} justify-between w-full px-5 items-center`}>
                     {navItems.map((item, index) => (
@@ -131,7 +144,9 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                             key={index}
                             className="flex justify-center items-center cursor-pointer hover:text-secundary hover:scale-105 transition-all duration-300 font-uniq"
                             onClick={() => {
-                                if ((typeof item === "string" && item === "Play Music") || index === 1) {
+                                if (index === 0 || index === 2) { // Login or Settings
+                                    showUnavailableMessage();
+                                } else if ((typeof item === "string" && item === "Play Music") || index === 1) {
                                     if (scrollToMusic) {
                                         scrollToMusic();
                                     }
@@ -143,8 +158,6 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
                     ))}
                 </ul>
             </div>
-
-            
         </motion.nav>
     );
 };

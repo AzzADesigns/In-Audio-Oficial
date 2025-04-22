@@ -89,7 +89,7 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
                             className="w-full h-[650px]"
                         >
                             {playMusic.map((file) => (
-                                <div key={file.id} className='bg-primary h-20 w-full'>
+                                <div key={file.name} className='bg-primary h-20 w-full'>
                                     <MusicPlayer 
                                         title={file.name} 
                                         artist={file.artist} 
