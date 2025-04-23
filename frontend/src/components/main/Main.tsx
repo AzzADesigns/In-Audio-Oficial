@@ -18,4 +18,4 @@ export const Main = ({ musicRef }) => {
     );
 }
 
-//cambiar el h cuando agreges mas componentes
+
