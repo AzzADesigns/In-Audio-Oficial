@@ -1,36 +1,30 @@
-import { PromotionAndMusic } from "./sectionMusic/PromotionAndMusic"
-import "./titleMaquee.css"
+import { PromotionAndMusic } from "./sectionMusic/PromotionAndMusic";
+import "./titleMaquee.css";
+import React, { RefObject } from "react";
 
+interface ListenToMusicProps {
+    musicRef: RefObject<HTMLDivElement>; 
+}
 
-export const ListenToMusic = ({ musicRef="string" }) => {
+export const ListenToMusic: React.FC<ListenToMusicProps> = ({ musicRef }) => {
+    const titleText = "Find your favorite music";
+
+    const titleRepeats = Array(6).fill(titleText);
+
     return (
         <div className="w-full">
-            <div className="">
-            <h1 className="text-4xl md:text-7xl 2xl:text-8xl font-dots text-tertiary bg-primary mb-10 marquee-container-find">
-                <div className="marquee-track-find gap-52">
-                    <div className="[&_div]:ml-70">
-                        <span className="text-secundary">F</span>ind your favorite music
+            <div>
+                <h1 className="text-4xl md:text-7xl 2xl:text-8xl font-dots text-tertiary bg-primary mb-10 marquee-container-find">
+                    <div className="marquee-track-find gap-52">
+                        {titleRepeats.map((text, index) => (
+                            <div key={index} className="[&_div]:ml-70">
+                                <span className="text-secundary">{text.charAt(0)}</span>{text.slice(1)}
+                            </div>
+                        ))}
                     </div>
-                    <div className="[&_div]:ml-70">
-                        <span className="text-secundary">F</span>ind your favorite music
-                    </div>    
-                    <div className="[&_div]:ml-70">
-                        <span className="text-secundary">F</span>ind your favorite music
-                    </div>
-                    <div className="[&_div]:ml-70">
-                        <span className="text-secundary">F</span>ind your favorite music
-                    </div>
-                    <div className="[&_div]:ml-70">
-                        <span className="text-secundary">F</span>ind your favorite music
-                    </div>
-                    <div className="[&_div]:ml-70">
-                        <span className="text-secundary">F</span>ind your favorite music
-                    </div>
-                </div>
-            </h1>
-
+                </h1>
             </div>
             <PromotionAndMusic musicRef={musicRef} />
         </div>
     );
-}
+};

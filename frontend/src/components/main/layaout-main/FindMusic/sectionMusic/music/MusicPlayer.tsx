@@ -42,9 +42,9 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ title, artist, genre, 
 
             <MarqueeItem text={title} />
             <p>-</p>
-            <p className=' w-20 md:w-24 lg:w-32 justify-center  xl:w-72 2xl:w-80 flex text-xs md:text-lg lg:text-xl 2xl:text-2xl  mr-5'>{artist}</p>
-            <p className='hidden lg:flex'>-</p>
-            <p className=' w-20 md:w-24 lg:w-32 justify-center  xl:w-72 2xl:w-80 xl:flex text-xs md:text-lg lg:text-xl 2xl:text-2xl  hidden mr-5'>{genre[0]}</p>
+            <p className=' w-40 md:w-32 lg:w-36 justify-center  xl:w-72 2xl:w-80 flex text-xs md:text-lg lg:text-lg xl:text-lg 2xl:text-2xl  mr-5'>{artist}</p>
+            <p className='hidden xl:flex'>-</p>
+            <p className=' w-28 md:w-32 lg:w-36 justify-center  xl:w-72 2xl:w-80 xl:flex text-xs md:text-lg lg:text-lg xl:text-lg  2xl:text-2xl  hidden mr-5'>{genre[0]}</p>
         </div>
     );
 };

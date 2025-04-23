@@ -1,4 +1,3 @@
-import { BsFillPlayCircleFill } from "react-icons/bs";
 import { useEffect } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
@@ -29,16 +28,23 @@ export const Banner = () => {
 
     return (
         <header className="flex-center w-full h-full">
-            <div className="h-96 md:h-[750px] 2xl:h-full w-full bg-red-200">
+            <motion.div
+                className="h-96 md:h-[750px] 2xl:h-full w-full bg-red-200"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+            >
                 <img src="/banner.png" alt="imagen del banner" className="w-full h-full object-cover" />
-
-            </div>
+            </motion.div>
 
             <figure className="absolute top-10 lg:top-24 2xl:static 2xl:h-auto">
-                <img
+                <motion.img
                     src="Logo1.svg"
-                    alt=""
+                    alt="logo"
                     className="md:ml-[24%] 2xl:ml-0 2xl:absolute 2xl:left-[35%] 2xl:top-32 w-52 md:w-[50%] xl:w-[50%] 2xl:w-[30%]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 0.5 }}
                 />
             </figure>
 
@@ -51,6 +57,7 @@ export const Banner = () => {
                         fill="transparent"
                         initial={{ pathLength: 0 }}
                         style={{ pathLength: pathProgress }}
+                        transition={{ duration: 1 }}
                     />
                 </svg>
             </figure>
