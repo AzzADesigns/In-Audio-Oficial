@@ -64,7 +64,7 @@ export const NavBar: React.FC<NavBarProps> = ({ scrollToMusic }) => {
     return (
         <motion.nav
             layout
-            className="fixed bottom-16 w-[70%] max-w-[1200px] xl:w-[40%] 2xl:w-[45%] z-50 bg-black/50 backdrop-blur-xl border-t-4 flex flex-col justify-between border-secundary text-tertiary shadow-lg rounded-4xl transition-all py-6"
+            className="fixed bottom-16 w-[70%] max-w-[1200px] xl:w-[35%] 2xl:w-[35%] z-50 bg-black/50 backdrop-blur-xl border-t-4 flex flex-col justify-between border-secundary text-tertiary shadow-lg rounded-4xl transition-all py-6"
         >
             {showMessage && <UnavailableMessage />}
             <AudioControls progress={progress} setProgress={setProgress} /> 

@@ -1,6 +1,6 @@
 
 import { Banner } from "./components/header/Banner";
-import { NavBar } from "./components/layaout/NavBar";
+import { NavBar } from "./components/layout/NavBar";
 import { Main } from "./components/main/Main";
 import { Footer } from "./components/footer/Footer";
 import { AudioProvider } from "./contexts/AudioContext";

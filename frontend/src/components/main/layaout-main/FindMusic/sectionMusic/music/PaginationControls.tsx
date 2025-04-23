@@ -14,7 +14,7 @@ export const PaginationControls: React.FC<PaginationControlsProps> = ({
     onNext
 }) => {
     return (
-        <div className="flex justify-center w-full max-w-[1050px] lg:justify-end items-center gap-4 mt-4">
+        <div className="flex justify-center   2xl:ml-36 w-full max-w-[1050px] lg:justify-end items-center gap-4 mt-4">
             <button
                 className="px-4 py-2 bg-secundary text-primary rounded hover:bg-tertiary hover:text-primary transition cursor-pointer"
                 disabled={page === 1 || isLoading}

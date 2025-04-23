@@ -53,8 +53,8 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
     }, [setOnEndReached]);
 
     return (
-        <section ref={ref} className='xl:w-[68%] mt-20 bg-primary xl:mr-5'>
-            <div className='flex flex-col lg:flex-row w-full justify-between'>
+        <section ref={ref} className='xl:w-[68%] mt-20 2xl:mr-20 bg-primary'>
+            <div className='flex flex-col pt-5 lg:flex-row w-full justify-between'>
                 <h3 className='font-dots text-tertiary text-2xl md:text-3xl xl:text-6xl tracking-wider '>
                     <span className='text-secundary'>O</span>ur Music
                 </h3>
@@ -63,7 +63,7 @@ export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
                 </p>
             </div>
 
-            <div className='w-full md:w-[400px] mt-10 lg:mt-20 lg:w-[600px] xl:w-[850px] 2xl:w-[1190px] h-[590px] flex-center'>
+            <div className='w-full md:w-[400px] mt-10 lg:mt-8 lg:w-[600px] xl:w-[850px] 2xl:w-[1190px] h-[590px] flex-center'>
                 <div className='text-tertiary bg-primary w-full h-20 flex justify-between items-center font-uniq text-lg lg:text-3xl ml-12 p-10'>
                     <h2 className='ml-8 lg:ml-24 xl:ml-20 2xl:ml-32'>Track</h2>
                     <h2 className='mr-10 md:mr-10 lg:mr-10'>Artist</h2>
