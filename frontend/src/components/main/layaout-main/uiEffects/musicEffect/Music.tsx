@@ -2,7 +2,6 @@ import { useState, useEffect, memo } from "react";
 import { CubeGrid } from "./CubeGrid";
 
 export const Music = memo(() => {
-    console.log('%cMusic render', 'color: blue');
     const [cols, setCols] = useState(10);
     const [rows, setRows] = useState(5);
 

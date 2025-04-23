@@ -26,26 +26,26 @@ export const Footer = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: 'easeInOut', delay: 0.4 }}
                 >
-                  <p>Linkedin:{" "}
-                    <a 
-                        href="https://www.linkedin.com/in/azariel-moreno-4267ba254/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="underline cursor-pointer hover:text-secundary"
-                    >
-                      Azariel Moreno
-                    </a>
-                  </p>
-                  <p>Github:{" "}
-                    <a 
-                        href="https://github.com/AzzADesigns"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="underline cursor-pointer hover:text-secundary"
-                    >
-                        AzzADesigns
-                    </a>
-                  </p>
+                    <p>Linkedin:{" "}
+                        <a 
+                            href="https://www.linkedin.com/in/azariel-moreno-4267ba254/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline cursor-pointer hover:text-secundary"
+                        >
+                            Azariel Moreno
+                        </a>
+                    </p>
+                    <p>Github:{" "}
+                        <a 
+                            href="https://github.com/AzzADesigns"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline cursor-pointer hover:text-secundary"
+                        >
+                            AzzADesigns
+                        </a>
+                    </p>
                 </motion.div>
             </section>
         </motion.footer>
