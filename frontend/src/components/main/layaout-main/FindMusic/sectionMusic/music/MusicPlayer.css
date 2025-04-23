@@ -1,0 +1,25 @@
+.marquee-container {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+    display: inline-flex;
+    animation: marquee-find 20s linear infinite;
+}
+
+.marquee-track span {
+    margin-right: 3rem; 
+}
+
+@keyframes marquee-find {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}

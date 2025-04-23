@@ -73,7 +73,7 @@ export const Carrusel = () => {
                                     <p className="text-sm text-secundary uppercase font-dots  md:text-lg">
                                         {genre.genre}
                                     </p>
-                                    <p className="text-sm w-60 md:w-auto  md:text-2xl text-tertiary font-uniq">{genre.description}</p>
+                                    <p className="text-sm w-44 md:w-auto  md:text-2xl text-tertiary font-uniq">{genre.description}</p>
                                 </div>
                             </div>
                         </li>

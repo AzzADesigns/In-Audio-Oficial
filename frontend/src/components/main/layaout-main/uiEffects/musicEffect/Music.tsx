@@ -17,15 +17,7 @@ export const Music = memo(() => {
                 // lg
                 setCols(8);  
                 setRows(4);  
-            } else if (window.innerWidth >= 768) {
-                // md
-                setCols(6);   
-                setRows(4);  
-            } else {
-                // sm
-                setCols(3); 
-                setRows(3);  
-            }
+            } 
         };
 
         window.addEventListener("resize", handleResize);
