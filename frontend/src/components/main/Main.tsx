@@ -1,10 +1,15 @@
+import { FC, RefObject } from "react";
 import { ListenToMusic } from "./layaout-main/FindMusic/FindYourMusic";
-import { OurGenres } from "./layaout-main/sectionGenres/OurGenres"
-import { Text } from "./layaout-main/sectionText/Text"
+import { OurGenres } from "./layaout-main/sectionGenres/OurGenres";
+import { Text } from "./layaout-main/sectionText/Text";
 
-export const Main = ({ musicRef }) => {
+interface MainProps {
+    musicRef: RefObject<HTMLDivElement>; 
+}
+
+export const Main: FC<MainProps> = ({ musicRef }) => {
     return (
-        <main className=" h-full flex lg:mt-0 lg:pt-0 flex-center justify-start mb-32 w-full flex-center gap-32 xl:gap-32 ">
+        <main className="h-full flex lg:mt-0 lg:pt-0 flex-center justify-start mb-32 w-full flex-center gap-32 xl:gap-32">
             <div className="w-full 2xl:h-96 flex justify-center">
                 <Text />
             </div>
@@ -16,6 +21,5 @@ export const Main = ({ musicRef }) => {
             </div>
         </main>
     );
-}
+};
 
-//cambiar el h cuando agreges mas componentes

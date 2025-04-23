@@ -19,9 +19,10 @@ export const getMusic = async (page: number = 1, limit: number = 7): Promise<Pla
                 limit
             }
         });
+        
         return response.data;
     } catch (error) {
-        console.log("Error al obtener la música:", error);
+        console.debug("Error al obtener la música:", error);
         return [];
     }
 }

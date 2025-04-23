@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback, memo } from "react";
 
-// Definición de tipos para las props
 interface CubeGridProps {
     cols: number;
     rows: number;
@@ -26,20 +25,17 @@ const CubeGridComponent: React.FC<CubeGridProps> = ({ cols, rows, color }) => {
     }, []);
 
     const generateTargetHeights = useCallback((): number[] => {
-        const timeFactor = Math.sin(Date.now() / 300); // Cambio más rápido para más ritmo
+        const timeFactor = Math.sin(Date.now() / 300); 
         switch (stage) {
             case 0:
-                // Efecto de "rebotar" en el ritmo con picos más rápidos
                 return Array.from({ length: cols }, (_, i) => 
                     Math.floor(Math.sin((i / cols + timeFactor * 50) * Math.PI * 20) * (rows - 10))
                 );
             case 1:
-                // Efecto más caótico, con variaciones inesperadas de altura
                 return Array.from({ length: cols }, (_, i) => 
                     Math.floor(Math.sin((i + timeFactor) * Math.PI * 500) * (rows / 100) + Math.random() * (rows / 0.4))
                 );
             default:
-                // Efecto rítmico con más variabilidad para simular el ritmo
                 return Array.from({ length: cols }, (_, i) => 
                     Math.floor(Math.sin(timeFactor * (i + 1)) * 3 + Math.random() * (rows / 3))
                 );
