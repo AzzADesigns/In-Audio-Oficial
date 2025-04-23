@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback, memo } from "react";
 
-// Definición de tipos para las props
 interface CubeGridProps {
     cols: number;
     rows: number;

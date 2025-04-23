@@ -17,7 +17,7 @@ export const getTracks = async (limit = 8, offset = 0) => {
             },
         });
 
-        console.log("Tracks Response:", response.data);
+        console.debug("Tracks Response:", response.data);
 
         if (!response.data.results) {
             throw new Error('No se encontraron resultados');
