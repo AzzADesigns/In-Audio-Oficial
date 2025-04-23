@@ -1,4 +1,3 @@
-// NavBar.tsx
 import { useEffect, useState } from "react";
 import { RiLoginCircleFill } from "react-icons/ri";
 import { motion } from 'framer-motion';

@@ -3,8 +3,7 @@ import { Music } from "../uiEffects/musicEffect/Music";
 import { motion } from "framer-motion";
 
 export const Text = memo(() => {
-    console.log('%cText render', 'color: orange');
-    
+
     return (
         <motion.div
             whileInView={{ opacity: 1, y: 0 }}  
