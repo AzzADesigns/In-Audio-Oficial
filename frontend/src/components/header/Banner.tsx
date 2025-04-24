@@ -29,7 +29,7 @@ export const Banner = () => {
     return (
         <header className="flex-center w-full h-full">
             <motion.div
-                className="h-96 md:h-[750px] 2xl:h-full w-full bg-red-200"
+                className="h-96 md:h-[750px] 2xl:h-full w-full"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}

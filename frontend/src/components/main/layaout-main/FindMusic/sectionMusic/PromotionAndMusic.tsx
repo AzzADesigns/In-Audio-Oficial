@@ -5,7 +5,7 @@ import { ListMusic } from './music/ListMusic';
 
 
 interface PromotionAndMusicProps {
-    musicRef: RefObject<HTMLDivElement>;  
+    musicRef: RefObject<HTMLDivElement | null>;  
 }
 
 export const PromotionAndMusic: React.FC<PromotionAndMusicProps> = ({ musicRef }) => {

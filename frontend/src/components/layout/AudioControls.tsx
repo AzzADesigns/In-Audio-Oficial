@@ -1,14 +1,11 @@
+import { useEffect, useState } from "react";
 import { BsSkipBackward, BsSkipForward, BsFillPlayCircleFill, BsPauseCircleFill } from "react-icons/bs";
 import { FaMusic } from "react-icons/fa6";
 import { useAudio } from "../../contexts/AudioContext";
 
-interface AudioControlsProps {
-    progress: number;
-    setProgress: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const AudioControls: React.FC<AudioControlsProps> = ({ progress, setProgress }) => {
+const AudioControls: React.FC = () => {
     const { currentAudio, currentTrackInfo, setIsPlaying, isPlaying, nextTrack, prevTrack } = useAudio();
+    const [progress, setProgress] = useState(0);
 
     const handlePlayPause = () => {
         if (!currentAudio) return;
@@ -28,11 +25,24 @@ const AudioControls: React.FC<AudioControlsProps> = ({ progress, setProgress }) 
         setProgress(newTime / currentAudio.duration);
     };
 
+    useEffect(() => {
+        if (!currentAudio) return;
+
+        const updateProgress = () => {
+            if (currentAudio.duration) {
+                setProgress(currentAudio.currentTime / currentAudio.duration);
+            }
+        };
+
+        currentAudio.addEventListener("timeupdate", updateProgress);
+        return () => currentAudio.removeEventListener("timeupdate", updateProgress);
+    }, [currentAudio]);
+
     return (
         <div className="w-full max-w-4xl flex flex-col md:flex-row justify-center items-center gap-4 px-4">
             <div className="text-xs max-w-52 md:text-sm text-center flex gap-2 items-center text-tertiary">
-                <FaMusic className="text-secundary w-5 h-5 " />
-                <p className="w-40">{currentTrackInfo?.title} - {currentTrackInfo?.artist}</p>
+                <FaMusic className="text-secundary w-5 h-5" />
+                <p className="w-40 truncate">{currentTrackInfo?.title} - {currentTrackInfo?.artist}</p>
             </div>
 
             <div className="flex gap-3 items-center">
@@ -50,7 +60,7 @@ const AudioControls: React.FC<AudioControlsProps> = ({ progress, setProgress }) 
                     <BsSkipForward className="w-8 h-8" />
                 </button>
             </div>
-              
+
             <input
                 type="range"
                 min={0}
