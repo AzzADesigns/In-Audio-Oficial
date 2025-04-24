@@ -13,7 +13,7 @@ interface PlayMusic {
     audioUrl: string;
 }
 
-export const ListMusic = React.forwardRef<HTMLDivElement>((props, ref) => {
+export const ListMusic = React.forwardRef<HTMLDivElement>((_props, ref) => {
     const [playMusic, setPlayMusic] = useState<PlayMusic[]>([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
