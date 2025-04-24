@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 export const Footer = () => {
     return (
         <motion.footer
-            className="flex flex-col md:flex-row lg:h-14 md:justify-between w-full mt-20 lg:text-xl md:items-center text-tertiary text-md font-uniq mb-5"
+            className="flex flex-col md:flex-row lg:h-14 md:justify-between w-full mt-20 lg:text-xl md:items-center text-tertiary text-md font-uniq mb-60 md:mb-40 lg:mb-44 xl:mb-5"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: 'easeInOut' }}
@@ -19,29 +19,29 @@ export const Footer = () => {
                 />
             </div>
             
-            <section className="flex w-full justify-between mt-5">
+            <section className="flex w-[92%] justify-between mt-5">
                 <motion.div
-                    className="flex gap-5 lg:gap-7 justify-center xl:justify-end w-full"
+                    className="flex gap-5 lg:gap-7 justify-between lg:justify-center  xl:justify-end w-full"
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: 'easeInOut', delay: 0.4 }}
                 >
-                    <p>Linkedin:{" "}
+                    <p className='w-32 md:w-auto'>Linkedin:{" "}
                         <a 
                             href="https://www.linkedin.com/in/azariel-moreno-4267ba254/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="underline cursor-pointer hover:text-secundary"
+                            className="underline cursor-pointer hover:text-secundary "
                         >
                             Azariel Moreno
                         </a>
                     </p>
-                    <p>Github:{" "}
+                    <p className='w-20 md:w-auto'>Github:{" "}
                         <a 
                             href="https://github.com/AzzADesigns"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="underline cursor-pointer hover:text-secundary"
+                            className="underline cursor-pointer hover:text-secundary "
                         >
                             AzzADesigns
                         </a>

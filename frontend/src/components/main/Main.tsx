@@ -4,7 +4,7 @@ import { OurGenres } from "./layaout-main/sectionGenres/OurGenres";
 import { Text } from "./layaout-main/sectionText/Text";
 
 interface MainProps {
-    musicRef: RefObject<HTMLDivElement>; 
+    musicRef: RefObject<HTMLDivElement | null>; 
 }
 
 export const Main: FC<MainProps> = ({ musicRef }) => {

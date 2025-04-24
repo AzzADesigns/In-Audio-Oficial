@@ -8,7 +8,7 @@ interface PlayMusic {
     audioUrl: string;
 }
 
-const BASE_URL = "http://localhost:3000/music";
+const BASE_URL = "https://in-audio.onrender.com/music";
 
 
 export const getMusic = async (page: number = 1, limit: number = 7): Promise<PlayMusic[]> => {

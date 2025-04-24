@@ -3,7 +3,7 @@ import "./titleMaquee.css";
 import React, { RefObject } from "react";
 
 interface ListenToMusicProps {
-    musicRef: RefObject<HTMLDivElement>; 
+    musicRef: RefObject<HTMLDivElement | null>; 
 }
 
 export const ListenToMusic: React.FC<ListenToMusicProps> = ({ musicRef }) => {
