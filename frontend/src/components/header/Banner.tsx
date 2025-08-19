@@ -34,7 +34,7 @@ export const Banner = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
             >
-                <img src="/banner.png" alt="imagen del banner" className="w-full h-full object-cover" />
+                <img src="/banner.jpg" alt="imagen del banner" className="w-full h-full object-cover" />
             </motion.div>
 
             <figure className="absolute top-10 lg:top-24 2xl:static 2xl:h-auto">
